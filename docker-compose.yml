@@ -22,5 +22,3 @@ services:
     container_name: free-meturist-back-postgres
     environment:
       POSTGRES_PASSWORD: postgres
-    ports:
-        - 5432:5432
