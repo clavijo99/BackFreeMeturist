@@ -144,13 +144,13 @@ Use the same command to configure secret credentials for the app
 Configure the dokku remote:
 
 ```
-git remote add production dokku@<my-dokku-server.com>:free-meturist-back
+git remote add dokku dokku@<my-dokku-server.com>:free-meturist-back
 ```
 
 Push your changes and just wait for the magic to happens :D:
 
 ```
-git push production master
+git push dokku main
 ```
 
 Optional: To add SSL to the app check:
