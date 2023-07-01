@@ -23,7 +23,7 @@ urlpatterns = [
     path('users/', include('user.urls')),
     path('location/', include('location.urls')),
     path('register/', include('register.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
 
 if not settings.IS_PRODUCTION:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
