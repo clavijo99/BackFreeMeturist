@@ -20,5 +20,15 @@ services:
   db:
     image: postgres:11
     container_name: free-meturist-back-postgres
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "5432:5432"
     environment:
-      POSTGRES_PASSWORD: postgres
+      - POSTGRES_DB=tourism
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./back/pgdata:/var/lib/postgresql/data
+    networks:
+      - ddd-network
