@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3'
 
 services:
   free-meturist-back:
@@ -32,3 +32,13 @@ services:
       - ./pgdata:/var/lib/postgresql/data
     networks:
       - ddd-network
+
+# Docker Networks
+networks:
+  ddd-network:
+    driver: bridge
+
+# Volumes
+volumes:
+  pgdata:
+    driver: local
