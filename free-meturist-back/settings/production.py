@@ -6,7 +6,7 @@ DEBUG = False
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 ALLOWED_HOSTS = ['free-meturist-back.mi-server.cloud']
-CSRF_TRUSTED_ORIGINS = ['free-meturist-back.mi-server.cloud']
+CSRF_TRUSTED_ORIGINS = ['https://free-meturist-back.mi-server.cloud']
 SECRET_KEY = get_secret('DJANGO_SECRET_KEY')
 
 if get_secret('DATABASE_URL'):
