@@ -1,7 +1,4 @@
-from django.http import HttpResponse
 from django.shortcuts import render
+from django.http import HttpResponse
 
-
-def home(request):
-    return HttpResponse('<h1>It worked!</h1>'
-                        '<div>Made by <a href="http://altix.co" target="_blank">Grupo Altix</a></div>')
+def home(request): return HttpResponse('<h1 style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; align-content: center;" > It worked!</h1>')
