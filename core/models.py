@@ -117,7 +117,7 @@ class SocialNetwork(models.Model):
         ("Facebook", "Facebook"),
         ("Instagram", "Instagram"),
         ("YouTube", "YouTube"),
-        ("Redis", "Redis"),
+        ("whatsApp", "whatsApp"),
     ))
 
 class SiteImages(models.Model):
