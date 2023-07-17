@@ -25,17 +25,28 @@ class UserAdmin(BaseUserAdmin):
 
 @admin.register(SiteImages)
 class SiteImagesAdmin(admin.ModelAdmin):
-    list_display=('site','image',)
+    list_display=('site',)
     
+
 
 @admin.register(Recommended)
 class Recommended(admin.ModelAdmin):
     list_display=('title',)
 
+
+
+
+@admin.register(SocialNetwork)
+class SocialNetwork(admin.ModelAdmin):
+    list_display=('site','link','type_social_network',)
+
 admin.site.register(User, UserAdmin)
 admin.site.register(Category)
 admin.site.register(Site)
 admin.site.register(Comment)
-admin.site.register(SocialNetwork)
+#admin.site.register(SocialNetwork)
+#admin.site.register(Recommended)
+#admin.site.register(SiteImages)
+
 
 

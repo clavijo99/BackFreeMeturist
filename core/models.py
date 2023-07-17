@@ -131,8 +131,10 @@ class SocialNetwork(models.Model):
         ("YouTube", "YouTube"),
         ("whatsApp", "whatsApp"),
     ))
-    def __str__(self):
-        return self.name
+   
+   # def __str__(self):
+     #   return self.name
+    
     class Meta:
         verbose_name='RedSocalSitio'
         verbose_name_plural='RedesSocialesSitios'
@@ -140,10 +142,10 @@ class SocialNetwork(models.Model):
 
 class SiteImages(models.Model):
     """ model site image """
-    site = models.ForeignKey(Site, on_delete=models.CASCADE, related_name='site_images')
+    site = models.ForeignKey(Site, on_delete=models.CASCADE, related_name='site_images', verbose_name="Sitio")
     image = models.ImageField(upload_to=upload_to, blank=True, null=True)
-    def __str__(self):
-        return self.name
+   # def __str__(self):
+    #    return self.name
     class Meta:
         verbose_name='ImagenSitio'
         verbose_name_plural='ImagenesSitios'
@@ -155,8 +157,8 @@ class Recommended(models.Model):
     content = models.TextField(verbose_name="Contenido")
     link = models.CharField(max_length=500, verbose_name="Enlace")
     image = models.ImageField(upload_to=upload_to, blank=True, null=True)
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #    return self.name
     class Meta:
         verbose_name='PaginaRecomendada'
         verbose_name_plural='PaginasRecomendadas'
