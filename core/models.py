@@ -59,6 +59,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+    class Meta:
+        verbose_name='Usuario'
+        verbose_name_plural='Usuarios'
 
 
 class Category(models.Model):
@@ -68,6 +71,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+    class Meta:
+        verbose_name='Categoria'
+        verbose_name_plural='Categorias'
 
 
 class Site(models.Model):
@@ -95,6 +101,9 @@ class Site(models.Model):
 
     def __str__(self):
         return self.name
+    class Meta:
+        verbose_name='Sitio'
+        verbose_name_plural='Sitios'
 
 class Comment(models.Model):
     """ model comment """
@@ -108,6 +117,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.name
+    class Meta:
+        verbose_name='Comentario'
+        verbose_name_plural='Comentarios'
 
 class SocialNetwork(models.Model):
     """ model social network """
@@ -122,8 +134,8 @@ class SocialNetwork(models.Model):
     def __str__(self):
         return self.name
     class Meta:
-        verbose_name='sitioRedSocal'
-        verbose_name_plural='sitiosRedesSociales'
+        verbose_name='RedSocalSitio'
+        verbose_name_plural='RedesSocialesSitios'
 
 
 class SiteImages(models.Model):
@@ -133,8 +145,8 @@ class SiteImages(models.Model):
     def __str__(self):
         return self.name
     class Meta:
-        verbose_name='sitioImagen'
-        verbose_name_plural='sitiosImagenes'
+        verbose_name='ImagenSitio'
+        verbose_name_plural='ImagenesSitios'
 
 
 class Recommended(models.Model):
@@ -143,6 +155,11 @@ class Recommended(models.Model):
     content = models.TextField(verbose_name="Contenido")
     link = models.CharField(max_length=500, verbose_name="Enlace")
     image = models.ImageField(upload_to=upload_to, blank=True, null=True)
+    def __str__(self):
+        return self.name
+    class Meta:
+        verbose_name='PaginaRecomendada'
+        verbose_name_plural='PaginasRecomendadas'
 
 @receiver(post_save, sender=Comment)
 def update_site_quality(sender, instance, **kwargs):

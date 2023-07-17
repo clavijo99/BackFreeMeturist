@@ -23,6 +23,12 @@ DEPENDENCIES_APPS = [
     'django.contrib.staticfiles',
 ]
 
+JAZZMIN_SETTINGS = {
+   
+
+    "site_brand": "Panel Admin", #Configura el texto del menu del admin
+}
+
 PROJECT_APPS = [
     'main',
     'core',
