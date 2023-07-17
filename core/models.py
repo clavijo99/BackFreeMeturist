@@ -119,11 +119,23 @@ class SocialNetwork(models.Model):
         ("YouTube", "YouTube"),
         ("whatsApp", "whatsApp"),
     ))
+    def __str__(self):
+        return self.name
+    class Meta:
+        verbose_name='sitioRedSocal'
+        verbose_name_plural='sitiosRedesSociales'
+
 
 class SiteImages(models.Model):
     """ model site image """
     site = models.ForeignKey(Site, on_delete=models.CASCADE, related_name='site_images')
     image = models.ImageField(upload_to=upload_to, blank=True, null=True)
+    def __str__(self):
+        return self.name
+    class Meta:
+        verbose_name='sitioImagen'
+        verbose_name_plural='sitiosImagenes'
+
 
 class Recommended(models.Model):
     """ model recommended """
@@ -141,3 +153,5 @@ def generate_fake_name(sender, instance, **kwargs):
     if not instance.fake_name:
         fake = Faker()
         instance.fake_name = fake.name()
+
+
