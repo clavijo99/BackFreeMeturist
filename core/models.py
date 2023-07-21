@@ -39,7 +39,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     """ model usuario """
     email = models.EmailField(max_length=255, verbose_name='Correo Electronico', unique=True)
     name = models.CharField(max_length=100, verbose_name='Nombre')
-    fake_name = models.CharField(max_length=100, verbose_name='Nickname', blank=True)
+  #  fake_name = models.CharField(max_length=100, verbose_name='Nickname', blank=True)
     is_active = models.BooleanField(default=True, verbose_name='Usuario Activo')
     is_staff = models.BooleanField(default=False, verbose_name='Usuario Staff')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Fecha de Creacion')
@@ -167,10 +167,11 @@ class Recommended(models.Model):
 def update_site_quality(sender, instance, **kwargs):
     instance.site.update_quality()
 
-@receiver(pre_save, sender=User)
-def generate_fake_name(sender, instance, **kwargs):
-    if not instance.fake_name:
-        fake = Faker()
-        instance.fake_name = fake.name()
+#funcion de generar nombres fake unida a la linea fake_name
+#@receiver(pre_save, sender=User)
+#def generate_fake_name(sender, instance, **kwargs):
+#    if not instance.fake_name:
+#        fake = Faker()
+#        instance.fake_name = fake.name()
 
 
