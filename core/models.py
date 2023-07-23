@@ -48,8 +48,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(max_length=100, blank=True, null=True)
     nationality = models.CharField(max_length=100, blank=True, null=True)
     gender = models.CharField(max_length=100, choices=(
-        ("M", "Male"),
-        ("F", "Female")
+        ("M", "Masculino"),
+        ("F", "Femenino")
     ), blank=True, null=True)
 
     objects = UserManager()

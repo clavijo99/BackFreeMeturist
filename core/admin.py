@@ -40,10 +40,15 @@ class Recommended(admin.ModelAdmin):
 class SocialNetwork(admin.ModelAdmin):
     list_display=('site','link','type_social_network',)
 
+
+@admin.register(Comment)
+class Comment(admin.ModelAdmin):
+    list_display=('name', 'site', 'user', 'quality',)
+
 admin.site.register(User, UserAdmin)
 admin.site.register(Category)
 admin.site.register(Site)
-admin.site.register(Comment)
+#admin.site.register(Comment)
 #admin.site.register(SocialNetwork)
 #admin.site.register(Recommended)
 #admin.site.register(SiteImages)
