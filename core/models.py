@@ -6,7 +6,7 @@ import uuid
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
-from faker import Faker
+#from faker import Faker
 
 def upload_to(instance, filename):
     return 'images/{filename}'.format(filename=filename)
