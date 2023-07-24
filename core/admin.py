@@ -50,7 +50,10 @@ class Comment(admin.ModelAdmin):
 class Site(admin.ModelAdmin):
     list_display=('name', 'location', 'address', 'quality',)
 
-admin.site.register(User, UserAdmin)
+
+
+admin.site.register(User,UserAdmin)
+#admin.site.register(User, UserAdmin)
 admin.site.register(Category)
 #admin.site.register(Site)
 #admin.site.register(Comment)
