@@ -7,7 +7,7 @@ from django.utils.translation import gettext as _
 class UserAdmin(BaseUserAdmin):
     """ admin para modelo user custom """
     ordering = ['id']
-    list_display = ['email', 'name',]
+    list_display = ['email', 'name', 'nationality',]
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Personal Info'), {'fields': ('name', 'avatar', 'phone', 'nationality', 'gender')}),
