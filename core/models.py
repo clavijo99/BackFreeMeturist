@@ -6,6 +6,8 @@ import uuid
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
+
+from django.utils.translation import gettext_lazy as _
 #from faker import Faker
 
 def upload_to(instance, filename):
@@ -66,8 +68,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Category(models.Model):
     """ model category """
-    name = models.CharField(max_length=255, verbose_name='Nombre')
-    image = models.ImageField(upload_to=upload_to, blank=True, null=True)
+    name = models.CharField(_('Categoria'), max_length=255, )
+    image = models.ImageField(_('Imagen'), upload_to=upload_to, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -78,17 +80,17 @@ class Category(models.Model):
 
 class Site(models.Model):
     """ model site """
-    name = models.CharField(max_length=255, verbose_name='Nombre')
-    url = models.CharField(max_length=255, verbose_name='Enlace')
-    location = models.CharField(max_length=255, verbose_name='Lugar')
-    quality = models.DecimalField(max_digits=5, decimal_places=2, validators=[MinValueValidator(0), MaxValueValidator(5)])
-    description = models.CharField(max_length=500, verbose_name='Descripcion', null=True)
-    address = models.CharField(max_length=500, verbose_name='direccion', null=True)
+    name = models.CharField(_('Nombre'), max_length=255, )
+    url = models.CharField(_('Enlace'), max_length=255, )
+    location = models.CharField(_('Lugar'), max_length=255, )
+    quality = models.DecimalField(_('Calificación'), max_digits=5, decimal_places=2, validators=[MinValueValidator(0), MaxValueValidator(5)])
+    description = models.CharField(_('Descripcion'), max_length=500, null=True)
+    address = models.CharField(_('Dirección'), max_length=500, null=True)
 
-    image = models.ImageField(upload_to=upload_to, blank=True, null=True)
+    image = models.ImageField(_('Imagen'), upload_to=upload_to, blank=True, null=True)
 
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='sites')
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='sites', verbose_name="Categoria")
+    price = models.DecimalField(_('Precio'), max_digits=10, decimal_places=2, default=0)
 
     def update_quality(self):
         comments = self.comment_set.all()
@@ -107,7 +109,7 @@ class Site(models.Model):
 
 class Comment(models.Model):
     """ model comment """
-    name = models.TextField()
+    name = models.TextField(_('nombre'))
     site = models.ForeignKey(Site, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     quality = models.DecimalField(max_digits=5, decimal_places=2, validators=[MinValueValidator(0), MaxValueValidator(5)], default=0)
