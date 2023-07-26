@@ -68,7 +68,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Category(models.Model):
     """ model category """
-    name = models.CharField(_('Categoria'), max_length=255, )
+    name = models.CharField(_('Nombre'), max_length=255, )
     image = models.ImageField(_('Imagen'), upload_to=upload_to, blank=True, null=True)
 
     def __str__(self):
@@ -109,7 +109,7 @@ class Site(models.Model):
 
 class Comment(models.Model):
     """ model comment """
-    name = models.TextField(_('nombre'))
+    name = models.TextField(_('Nombre'))
     site = models.ForeignKey(Site, on_delete=models.CASCADE, verbose_name='Sitio')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Usuario')
     quality = models.DecimalField(_('Calificación'), max_digits=5, decimal_places=2, validators=[MinValueValidator(0), MaxValueValidator(5)], default=0)
@@ -127,7 +127,7 @@ class SocialNetwork(models.Model):
     """ model social network """
     site = models.ForeignKey(Site, on_delete=models.CASCADE, related_name='social_networks')
     link = models.CharField(_('Enlace'), max_length=500, )
-    type_social_network = models.CharField(_('Enlace'), max_length=30, choices=(
+    type_social_network = models.CharField(_('Tipo'), max_length=30, choices=(
         ("Facebook", "Facebook"),
         ("Instagram", "Instagram"),
         ("YouTube", "YouTube"),
@@ -168,6 +168,10 @@ class Recommended(models.Model):
 @receiver(post_save, sender=Comment)
 def update_site_quality(sender, instance, **kwargs):
     instance.site.update_quality()
+
+
+
+
 
 #funcion de generar nombres fake unida a la linea fake_name
 #@receiver(pre_save, sender=User)
