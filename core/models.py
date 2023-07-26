@@ -39,17 +39,17 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     """ model usuario """
-    email = models.EmailField(max_length=255, verbose_name='Correo Electronico', unique=True)
-    name = models.CharField(max_length=100, verbose_name='Nombre')
+    email = models.EmailField(_('Correo Electronico'), max_length=255, unique=True)
+    name = models.CharField(_('Nombre'), max_length=100)
     # fake_name = models.CharField(max_length=100, verbose_name='Nickname', blank=True)
     is_active = models.BooleanField(default=True, verbose_name='Usuario Activo')
     is_staff = models.BooleanField(default=False, verbose_name='Usuario Staff')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Fecha de Creacion')
     updated = models.DateTimeField(auto_now=True, verbose_name='Fecha Actualizacion')
     avatar = models.ImageField(upload_to=upload_to, blank=True, null=True)
-    phone = models.CharField(max_length=100, blank=True, null=True)
-    nationality = models.CharField(max_length=100, blank=True, null=True)
-    gender = models.CharField(max_length=100, choices=(
+    phone = models.CharField(_('Telefono'), max_length=100, blank=True, null=True)
+    nationality = models.CharField(_('Nacionalidad'), max_length=100, blank=True, null=True)
+    gender = models.CharField(_('Genero'), max_length=100, choices=(
         ("M", "Masculino"),
         ("F", "Femenino")
     ), blank=True, null=True)
@@ -110,9 +110,9 @@ class Site(models.Model):
 class Comment(models.Model):
     """ model comment """
     name = models.TextField(_('nombre'))
-    site = models.ForeignKey(Site, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    quality = models.DecimalField(max_digits=5, decimal_places=2, validators=[MinValueValidator(0), MaxValueValidator(5)], default=0)
+    site = models.ForeignKey(Site, on_delete=models.CASCADE, verbose_name='Sitio')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Usuario')
+    quality = models.DecimalField(_('Calificación'), max_digits=5, decimal_places=2, validators=[MinValueValidator(0), MaxValueValidator(5)], default=0)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -126,8 +126,8 @@ class Comment(models.Model):
 class SocialNetwork(models.Model):
     """ model social network """
     site = models.ForeignKey(Site, on_delete=models.CASCADE, related_name='social_networks')
-    link = models.CharField(max_length=500, verbose_name="Enlace")
-    type_social_network = models.CharField(max_length=30, verbose_name="Enlace", choices=(
+    link = models.CharField(_('Enlace'), max_length=500, )
+    type_social_network = models.CharField(_('Enlace'), max_length=30, choices=(
         ("Facebook", "Facebook"),
         ("Instagram", "Instagram"),
         ("YouTube", "YouTube"),
@@ -138,32 +138,32 @@ class SocialNetwork(models.Model):
      #   return self.name
     
     class Meta:
-        verbose_name='RedSocalSitio'
-        verbose_name_plural='RedesSocialesSitios'
+        verbose_name='Red Socal Sitio'
+        verbose_name_plural='Redes Sociales Sitios'
 
 
 class SiteImages(models.Model):
     """ model site image """
     site = models.ForeignKey(Site, on_delete=models.CASCADE, related_name='site_images', verbose_name="Sitio")
-    image = models.ImageField(upload_to=upload_to, blank=True, null=True)
+    image = models.ImageField(_('Imagen'), upload_to=upload_to, blank=True, null=True)
    # def __str__(self):
     #    return self.name
     class Meta:
-        verbose_name='ImagenSitio'
-        verbose_name_plural='ImagenesSitios'
+        verbose_name='Imagen Sitio'
+        verbose_name_plural='Imagenes Sitios'
 
 
 class Recommended(models.Model):
     """ model recommended """
-    title = models.CharField(max_length=255, verbose_name="Titulo")
-    content = models.TextField(verbose_name="Contenido")
-    link = models.CharField(max_length=500, verbose_name="Enlace")
-    image = models.ImageField(upload_to=upload_to, blank=True, null=True)
+    title = models.CharField(_('Titulo'), max_length=255)
+    content = models.TextField(_('Contenido'))
+    link = models.CharField(_('Enlace'), max_length=500)
+    image = models.ImageField(_('Imagen'), upload_to=upload_to, blank=True, null=True)
     # def __str__(self):
     #    return self.name
     class Meta:
-        verbose_name='PaginaRecomendada'
-        verbose_name_plural='PaginasRecomendadas'
+        verbose_name='Pagina Recomendada'
+        verbose_name_plural='Paginas Recomendadas'
 
 @receiver(post_save, sender=Comment)
 def update_site_quality(sender, instance, **kwargs):
