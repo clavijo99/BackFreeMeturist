@@ -146,8 +146,8 @@ class SiteImages(models.Model):
     image = models.ImageField(_('Imagen'), upload_to=upload_to, blank=True, null=True)
 
     class Meta:
-        verbose_name='Imagen Del Sitio'
-        verbose_name_plural='Imagenes De Los Sitios'
+        verbose_name='Imagen Sitio'
+        verbose_name_plural='Imagenes Sitios'
 
 
 class Recommended(models.Model):
