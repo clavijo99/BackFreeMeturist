@@ -132,10 +132,10 @@ JAZZMIN_SETTINGS = {
         "core.Category": "fas fa-network-wired",
         "core.Comment": "fas fa-comment",
         "core.SiteImages": "fas fa-images", 
-        "core.Site": "fas fa-award", #
+        "core.Site": "fas fa-award", 
         "core.User": "fas fa-users",
-        "core.SocialNetwork": "fas fa-globe",#
-        "core.Recommended": "fas fa-file",#
+        "core.SocialNetwork": "fas fa-globe",
+        "core.Recommended": "fas fa-file",
     },
     # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-chevron-circle-right",
