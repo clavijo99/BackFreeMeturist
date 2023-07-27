@@ -1,4 +1,8 @@
 import os
+from django.conf.global_settings import LANGUAGES as DJANGO_LANGUAGES
+
+from django.utils.translation import gettext_lazy as _
+
 
 
 ENVIRONMENT = os.environ.get('ENVIRONMENT', 'development')
@@ -170,7 +174,7 @@ JAZZMIN_SETTINGS = {
     # override change forms on a per modeladmin basis
     "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
     # Add a language dropdown into the admin
-    #"language_chooser": True,
+    "language_chooser": True,
 
 }
 
@@ -246,6 +250,11 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
+LANGUAGES = [
+    ("es", _("Spanish")),
+    ("en", _("English")),
+]
 
 
 
