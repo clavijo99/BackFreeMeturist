@@ -80,7 +80,7 @@ class Category(models.Model):
 
 class Site(models.Model):
     """ model site """
-    name = models.CharField(_('Nombre'), max_length=255, )
+    name = models.CharField(_('Sitio'), max_length=255, )
     url = models.CharField(_('Enlace'), max_length=255, )
     location = models.CharField(_('Lugar'), max_length=255, )
     quality = models.DecimalField(_('Calificación'), max_digits=5, decimal_places=2, validators=[MinValueValidator(0), MaxValueValidator(5)])
@@ -134,9 +134,7 @@ class SocialNetwork(models.Model):
         ("whatsApp", "whatsApp"),
     ))
    
-   # def __str__(self):
-     #   return self.name
-    
+
     class Meta:
         verbose_name='Red Socal Sitio'
         verbose_name_plural='Redes Sociales Sitios'
@@ -146,8 +144,7 @@ class SiteImages(models.Model):
     """ model site image """
     site = models.ForeignKey(Site, on_delete=models.CASCADE, related_name='site_images', verbose_name="Sitio")
     image = models.ImageField(_('Imagen'), upload_to=upload_to, blank=True, null=True)
-   # def __str__(self):
-    #    return self.name
+
     class Meta:
         verbose_name='Imagen Sitio'
         verbose_name_plural='Imagenes Sitios'
