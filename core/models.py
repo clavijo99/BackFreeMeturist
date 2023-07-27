@@ -109,7 +109,7 @@ class Site(models.Model):
 
 class Comment(models.Model):
     """ model comment """
-    name = models.TextField(_('Nombre'))
+    name = models.TextField(_('Comentario'))
     site = models.ForeignKey(Site, on_delete=models.CASCADE, verbose_name='Sitio')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Usuario')
     quality = models.DecimalField(_('Calificación'), max_digits=5, decimal_places=2, validators=[MinValueValidator(0), MaxValueValidator(5)], default=0)
@@ -159,8 +159,8 @@ class Recommended(models.Model):
     content = models.TextField(_('Contenido'))
     link = models.CharField(_('Enlace'), max_length=500)
     image = models.ImageField(_('Imagen'), upload_to=upload_to, blank=True, null=True)
-    # def __str__(self):
-    #    return self.name
+    def __str__(self):
+        return self.title
     class Meta:
         verbose_name='Pagina Recomendada'
         verbose_name_plural='Paginas Recomendadas'
