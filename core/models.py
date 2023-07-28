@@ -6,7 +6,9 @@ import uuid
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
-from faker import Faker
+
+from django.utils.translation import gettext_lazy as _
+#from faker import Faker
 
 def upload_to(instance, filename):
     return 'images/{filename}'.format(filename=filename)
@@ -37,19 +39,19 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     """ model usuario """
-    email = models.EmailField(max_length=255, verbose_name='Correo Electronico', unique=True)
-    name = models.CharField(max_length=100, verbose_name='Nombre')
-    fake_name = models.CharField(max_length=100, verbose_name='Nickname', blank=True)
+    email = models.EmailField(_('Correo Electronico'), max_length=255, unique=True)
+    name = models.CharField(_('Nombre'), max_length=100)
+    # fake_name = models.CharField(max_length=100, verbose_name='Nickname', blank=True)
     is_active = models.BooleanField(default=True, verbose_name='Usuario Activo')
     is_staff = models.BooleanField(default=False, verbose_name='Usuario Staff')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Fecha de Creacion')
     updated = models.DateTimeField(auto_now=True, verbose_name='Fecha Actualizacion')
     avatar = models.ImageField(upload_to=upload_to, blank=True, null=True)
-    phone = models.CharField(max_length=100, blank=True, null=True)
-    nationality = models.CharField(max_length=100, blank=True, null=True)
-    gender = models.CharField(max_length=100, choices=(
-        ("M", "Male"),
-        ("F", "Female")
+    phone = models.CharField(_('Telefono'), max_length=100, blank=True, null=True)
+    nationality = models.CharField(_('Nacionalidad'), max_length=100, blank=True, null=True)
+    gender = models.CharField(_('Genero'), max_length=100, choices=(
+        ("M", "Masculino"),
+        ("F", "Femenino")
     ), blank=True, null=True)
 
     objects = UserManager()
@@ -59,30 +61,36 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+    class Meta:
+        verbose_name='Usuario'
+        verbose_name_plural='Usuarios'
 
 
 class Category(models.Model):
     """ model category """
-    name = models.CharField(max_length=255, verbose_name='Nombre')
-    image = models.ImageField(upload_to=upload_to, blank=True, null=True)
+    name = models.CharField(_('Nombre'), max_length=255, )
+    image = models.ImageField(_('Imagen'), upload_to=upload_to, blank=True, null=True)
 
     def __str__(self):
         return self.name
+    class Meta:
+        verbose_name='Categoria'
+        verbose_name_plural='Categorias'
 
 
 class Site(models.Model):
     """ model site """
-    name = models.CharField(max_length=255, verbose_name='Nombre')
-    url = models.CharField(max_length=255, verbose_name='Enlace')
-    location = models.CharField(max_length=255, verbose_name='Lugar')
-    quality = models.DecimalField(max_digits=5, decimal_places=2, validators=[MinValueValidator(0), MaxValueValidator(5)])
-    description = models.CharField(max_length=500, verbose_name='Descripcion', null=True)
-    address = models.CharField(max_length=500, verbose_name='direccion', null=True)
+    name = models.CharField(_('Sitio'), max_length=255, )
+    url = models.CharField(_('Enlace'), max_length=255, )
+    location = models.CharField(_('Lugar'), max_length=255, )
+    quality = models.DecimalField(_('Calificación'), max_digits=5, decimal_places=2, validators=[MinValueValidator(0), MaxValueValidator(5)])
+    description = models.CharField(_('Descripcion'), max_length=500, null=True)
+    address = models.CharField(_('Dirección'), max_length=500, null=True)
 
-    image = models.ImageField(upload_to=upload_to, blank=True, null=True)
+    image = models.ImageField(_('Imagen'), upload_to=upload_to, blank=True, null=True)
 
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='sites')
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='sites', verbose_name="Categoria")
+    price = models.FloatField(_('Precio'),  default=0.0)
 
     def update_quality(self):
         comments = self.comment_set.all()
@@ -95,49 +103,80 @@ class Site(models.Model):
 
     def __str__(self):
         return self.name
+    class Meta:
+        verbose_name='Sitio'
+        verbose_name_plural='Sitios'
 
 class Comment(models.Model):
     """ model comment """
-    name = models.TextField()
-    site = models.ForeignKey(Site, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    quality = models.DecimalField(max_digits=5, decimal_places=2, validators=[MinValueValidator(0), MaxValueValidator(5)], default=0)
+    name = models.TextField(_('Comentario'))
+    site = models.ForeignKey(Site, on_delete=models.CASCADE, verbose_name='Sitio')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Usuario')
+    quality = models.DecimalField(_('Calificación'), max_digits=5, decimal_places=2, validators=[MinValueValidator(0), MaxValueValidator(5)], default=0)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
+    class Meta:
+        verbose_name='Comentario'
+        verbose_name_plural='Comentarios'
 
 class SocialNetwork(models.Model):
     """ model social network """
     site = models.ForeignKey(Site, on_delete=models.CASCADE, related_name='social_networks')
-    link = models.CharField(max_length=500, verbose_name="Enlace")
-    type_social_network = models.CharField(max_length=30, verbose_name="Enlace", choices=(
+    link = models.CharField(_('Enlace'), max_length=500, )
+    type_social_network = models.CharField(_('Tipo'), max_length=30, choices=(
         ("Facebook", "Facebook"),
         ("Instagram", "Instagram"),
         ("YouTube", "YouTube"),
-        ("Redis", "Redis"),
+        ("whatsApp", "whatsApp"),
     ))
+   
+
+    class Meta:
+        verbose_name='Red Socal Sitio'
+        verbose_name_plural='Redes Sociales Sitios'
+
 
 class SiteImages(models.Model):
     """ model site image """
-    site = models.ForeignKey(Site, on_delete=models.CASCADE, related_name='site_images')
-    image = models.ImageField(upload_to=upload_to, blank=True, null=True)
+    site = models.ForeignKey(Site, on_delete=models.CASCADE, related_name='site_images', verbose_name="Sitio")
+    image = models.ImageField(_('Imagen'), upload_to=upload_to, blank=True, null=True)
+    
+    def __str__(self):
+        return f"Imagen del sitio: {self.site.name}"
+    
+    verbose_name='Imagen Sitio'
+    verbose_name_plural='Imagenes Sitios'
+
 
 class Recommended(models.Model):
     """ model recommended """
-    title = models.CharField(max_length=255, verbose_name="Titulo")
-    content = models.TextField(verbose_name="Contenido")
-    link = models.CharField(max_length=500, verbose_name="Enlace")
-    image = models.ImageField(upload_to=upload_to, blank=True, null=True)
+    title = models.CharField(_('Titulo'), max_length=255)
+    content = models.TextField(_('Contenido'))
+    link = models.CharField(_('Enlace'), max_length=500)
+    image = models.ImageField(_('Imagen'), upload_to=upload_to, blank=True, null=True)
+    def __str__(self):
+        return self.title
+    class Meta:
+        verbose_name='Pagina Recomendada'
+        verbose_name_plural='Paginas Recomendadas'
 
 @receiver(post_save, sender=Comment)
 def update_site_quality(sender, instance, **kwargs):
     instance.site.update_quality()
 
-@receiver(pre_save, sender=User)
-def generate_fake_name(sender, instance, **kwargs):
-    if not instance.fake_name:
-        fake = Faker()
-        instance.fake_name = fake.name()
+
+
+
+
+#funcion de generar nombres fake unida a la linea fake_name
+#@receiver(pre_save, sender=User)
+# def generate_fake_name(sender, instance, **kwargs):
+#    if not instance.fake_name:
+#        fake = Faker()
+#        instance.fake_name = fake.name()
+
+
