@@ -144,10 +144,12 @@ class SiteImages(models.Model):
     """ model site image """
     site = models.ForeignKey(Site, on_delete=models.CASCADE, related_name='site_images', verbose_name="Sitio")
     image = models.ImageField(_('Imagen'), upload_to=upload_to, blank=True, null=True)
-
-    class Meta:
-        verbose_name='Imagen Del Sitio'
-        verbose_name_plural='Imagenes De Los Sitios'
+    
+    def __str__(self):
+        return f"Imagen del sitio: {self.site.name}"
+    
+    verbose_name='Imagen Sitio'
+    verbose_name_plural='Imagenes Sitios'
 
 
 class Recommended(models.Model):
