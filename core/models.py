@@ -90,7 +90,7 @@ class Site(models.Model):
     image = models.ImageField(_('Imagen'), upload_to=upload_to, blank=True, null=True)
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='sites', verbose_name="Categoria")
-    price = models.DecimalField(_('Precio'), max_digits=10, decimal_places=2, default=0)
+    price = models.FloatField(_('Precio'),  default=0.0)
 
     def update_quality(self):
         comments = self.comment_set.all()
