@@ -133,6 +133,8 @@ class SocialNetwork(models.Model):
         ("YouTube", "YouTube"),
         ("whatsApp", "whatsApp"),
     ))
+    def __str__(self):
+        return f"Red social: {self.type_social_network}, Agregada para: {self.site.name}"
    
 
     class Meta:
