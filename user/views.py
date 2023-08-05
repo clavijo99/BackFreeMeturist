@@ -7,6 +7,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
 
 from core.models import User, Comment
+from register.serializer import CommentListSerializer
 from user.serializer import UserSerializer, TokenSerializer
 
 
@@ -49,5 +50,5 @@ class UserMeId(generics.RetrieveAPIView):
 
 class CommentById(generics.RetrieveAPIView):
     queryset = Comment.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = CommentListSerializer
     lookup_field = 'pk'
