@@ -30,6 +30,8 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
     def update(self, instance, validated_data):
+        print(validated_data)
+        print("hello")
         password = validated_data.pop('password', None)
         user = super(UserSerializer, self).update(instance, validated_data)
         if password:
