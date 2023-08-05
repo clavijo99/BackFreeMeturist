@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import ListUser, LoginUser, UserMe, count_user, UserMeId
+from .views import ListUser, LoginUser, UserMe, count_user, UserMeId, CommentById
 
 app_name = 'user'
 
@@ -13,5 +13,6 @@ urlpatterns = [
     path('token/', LoginUser.as_view(), name='token'),
     path('me/', UserMe.as_view(), name='me'),
     path('me/<int:pk>', UserMeId.as_view(), name='me'),
+    path('comment/<int:pk>', CommentById.as_view(), name='me'),
     path('count/', count_user, name='count')
 ]

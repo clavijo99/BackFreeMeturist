@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
 
-from core.models import User
+from core.models import User, Comment
 from user.serializer import UserSerializer, TokenSerializer
 
 
@@ -42,8 +42,12 @@ class UserMe(generics.RetrieveUpdateDestroyAPIView):
 def count_user(request, format=None):
     """ obtiene  """
     count = get_user_model().objects.all().count()
-    return Response({'count': count})
 class UserMeId(generics.RetrieveAPIView):
     queryset = User.objects.all()
+    serializer_class = UserSerializer
+    lookup_field = 'pk'
+
+class CommentById(generics.RetrieveAPIView):
+    queryset = Comment.objects.all()
     serializer_class = UserSerializer
     lookup_field = 'pk'
