@@ -52,3 +52,11 @@ class CommentById(generics.RetrieveAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentListSerializer
     lookup_field = 'pk'
+
+
+class CommentsByUserId(generics.ListAPIView):
+    serializer_class = CommentListSerializer
+
+    def get_queryset(self):
+        user_id = self.kwargs['pk']
+        return Comment.objects.filter(user_id=user_id)
